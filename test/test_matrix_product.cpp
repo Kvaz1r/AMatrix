@@ -23,8 +23,14 @@ int TestMatrixProduct() {
 		for (int j = 0; j < b_matrix.size2(); j++)
 			b_matrix(i, j) = i + j + 1;
 		
-
-	c_matrix = a_matrix * b_matrix;
+        //equivalent way 1
+ 	c_matrix = a_matrix * b_matrix;
+        
+        AMatrix::Matrix<double, NumberOfRows,NumberOfSecondRows> c1;
+        c1 = 1.0 * prod(a_matrix , b_matrix);
+        
+        AMatrix::Matrix<double, NumberOfRows,NumberOfSecondRows> c2 = AMatrix::ZeroMatrixExpression<double,NumberOfRows,NumberOfSecondRows>();
+        c2 = 1.0*prod(a_matrix , b_matrix);
 
 	std::cout << std::endl;
 	std::cout << a_matrix << std::endl;
@@ -34,7 +40,11 @@ int TestMatrixProduct() {
 	for (int i = 0; i < c_matrix.size1(); i++)
 		for (int j = 0; j < c_matrix.size2(); j++)
 				if(i < NumberOfCulomns)
+                    {
 					AMATRIX_CHECK_EQUAL(c_matrix(i,j), b_matrix(i,j)*(i+1)*2.33);
+                                        AMATRIX_CHECK_EQUAL(c1(i,j), b_matrix(i,j)*(i+1)*2.33);
+                                        AMATRIX_CHECK_EQUAL(c2(i,j), b_matrix(i,j)*(i+1)*2.33);
+                    }
 
 	std::cout << "OK" << std::endl;
 	return 0; // not failed
