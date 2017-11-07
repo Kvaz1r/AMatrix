@@ -28,7 +28,6 @@ public:
 
     inline typename T1::TDataType operator()(int i, int j) const
     {
-        std::cout << "entering in MatrixMatrixProdExpression" << std::endl;
         TDataType tmp = 0.0;
         for(int k=0; k<ma.size2(); ++k)
             tmp += ma(i,k)*mb(k,j);
@@ -64,7 +63,6 @@ public:
 
     inline typename T2::TDataType operator()(int i, int j) const
     {
-        std::cout << "entering in ScalarTimesMatrixMatrixProdExpression" << std::endl;
         return ms*mb(i,j);
     }
 
@@ -94,7 +92,6 @@ public:
 
     inline TDataType operator()(int i, int j) const
     {
-        std::cout << "entering in ZeroMatrixExpression" << std::endl;
         return 0.0;
     }
 
@@ -152,7 +149,6 @@ public:
     template<class T>
     Matrix& operator=(T const& Other)
     {
-        std::cout << "entering in templates = operator" << std::endl;
         for(int i=0; i<size1(); ++i)
             for(int j=0; j<size2(); ++j)
                 (*this)(i,j) = Other(i,j);
